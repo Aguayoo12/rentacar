@@ -56,15 +56,20 @@
 
         @livewireScripts
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+    @stack('scripts')
+    <script>
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('bg-gray-900');
+            } else {
+                navbar.classList.remove('bg-gray-900');
+            }
+        });
+    </script>
 </html>
-<script>
-    window.addEventListener('scroll', function() {
-        var navbar = document.getElementById('navbar');
-        if (window.scrollY > 0) {
-            navbar.classList.add('bg-gray-900');
-        } else {
-            navbar.classList.remove('bg-gray-900');
-        }
-    });
-</script>
+
 
