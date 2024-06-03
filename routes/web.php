@@ -13,3 +13,7 @@ Route::middleware([
 ])->group(function () {
     
 });
+
+Route::get('/admin', function () {
+    return view('adminviews.adminview');
+})->name('admin');
