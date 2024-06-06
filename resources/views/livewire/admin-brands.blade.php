@@ -31,7 +31,7 @@
                     <td class="px-6 py-4"><img src="{{ asset('storage/'.$brand->logo) }}" alt="{{ $brand->name }}" class="mx-auto w-10 h-10"></td>
                     <td class="px-6 py-4 text-end">
                         <button class="font-medium text-gray-900 border border-gray-900 px-2 py-1 rounded hover:bg-gray-100" wire:click="$dispatch('editBrand', { brandId: {{ $brand->id }} })">Editar</button>
-                        <a href="#" class="font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 mx-2 rounded">Eliminar</a>
+                        <button wire:click='destroy({{ $brand }})' class="font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 mx-2 rounded">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach

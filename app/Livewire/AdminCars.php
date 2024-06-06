@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Brand;
 use App\Models\Car;
+use App\Models\Image;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -16,7 +17,9 @@ class AdminCars extends Component
         return view('livewire.admin-cars', compact('cars'));
     }
 
-    public function brand(Car $car){
-        return Brand::findOrFail($car->brand_id)->get('name');
+    public function destoy(Car $car){
+        $car->delete();
+        Image::where('car_id', $car->id)->delete();
+        $this->dispatch('updatedCar');
     }
 }

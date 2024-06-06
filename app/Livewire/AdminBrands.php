@@ -16,4 +16,10 @@ class AdminBrands extends Component
         $brands = Brand::all();
         return view('livewire.admin-brands', compact('brands'));
     }
+
+    public function destroy(Brand $brand)
+    {
+        $brand->delete();
+        $this->dispatch('brandUpdated');
+    }
 }

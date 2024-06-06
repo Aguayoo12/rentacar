@@ -13,7 +13,16 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('cars.index') }}" :active="request()->routeIs('cars.index')">
+                        {{ __('Ver Coches') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('comments.index') }}" :active="request()->routeIs('comments.index')">
+                        {{ __('Blog') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('')">
+                        {{ __('Mis coches') }}
                     </x-nav-link>
                 </div>
             </div>

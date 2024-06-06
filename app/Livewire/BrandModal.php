@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -62,6 +63,7 @@ class BrandModal extends Component
             $brand = Brand::findOrFail($this->brandId);
             $brand->name = $this->name;
             if ($this->image) {
+                Storage::delete('public/brands/'.$brand->logo);
                 $brand->logo = $this->image->store('brands', 'public');
             }
             $brand->save();

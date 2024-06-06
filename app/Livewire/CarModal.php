@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Car;
 use App\Models\Brand;
-use App\Models\Image;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -26,9 +25,10 @@ class CarModal extends Component
     public $type;
     public $fuel;
     public $city;
+    public $description;
     public $brand_id;
-    public $images = [];
-    public $imagePreviews = [];
+    public $image;
+    public $imagePreview;
     public $brands;
 
     protected $rules = [
@@ -38,7 +38,7 @@ class CarModal extends Component
         'price' => 'required|numeric',
         'km' => 'required|numeric',
         'city' => 'required|string|max:255',
-        'images.*' => 'nullable|image|max:1024',
+        'image' => 'nullable|image|max:1024',
     ];
 
     #[On('editCar')] 
@@ -59,10 +59,8 @@ class CarModal extends Component
             $this->type = $car->type;
             $this->fuel = $car->fuel;
             $this->city = $car->city;
+            $this->description = $car->description;
             $this->brand_id = $car->brand_id;
-            $this->imagePreviews = Image::where('car_id', $car->id)->get()->map(function ($image) {
-                return $image->img;
-            });
         } else {
             $this->resetForm();
         }
@@ -76,20 +74,19 @@ class CarModal extends Component
 
     public function resetForm()
     {
-        $this->reset(['carId', 'name', 'seats', 'transmission', 'power', 'price', 'km', 'type', 'fuel', 'city', 'brand_id', 'images', 'imagePreviews', 'car']);
+        $this->reset(['carId', 'name', 'seats', 'transmission', 'power', 'price', 'km', 'type', 'fuel', 'city', 'brand_id', 'image', 'description', 'imagePreview', 'car']);
     }
 
-    public function updatedImages()
+    public function updatedImage()
     {
-        $this->imagePreviews = [];
-        foreach ($this->images as $image) {
-            $this->imagePreviews[] = $image->temporaryUrl();
-        }
+        $this->imagePreview = $this->image->temporaryUrl();
     }
 
     public function save()
     {
         $this->validate();
+
+        $imagePath = $this->image ? $this->image->store('cars', 'public') : null;
 
         if ($this->carId) {
             $car = Car::findOrFail($this->carId);
@@ -104,19 +101,11 @@ class CarModal extends Component
                 'fuel' => $this->fuel,
                 'city' => $this->city,
                 'brand_id' => $this->brand_id,
+                'description' => $this->description,
+                'image' => $imagePath ? $imagePath : $car->image,
             ]);
-
-            if ($this->images) {
-                foreach ($this->images as $image) {
-                    $imagePath = $image->store('cars', 'public');
-                    Image::create([
-                        'img' => $imagePath,
-                        'car_id' => $car->id,
-                    ]);
-                }
-            }
         } else {
-            $car = Car::create([
+            Car::create([
                 'name' => $this->name,
                 'seats' => $this->seats,
                 'transmission' => $this->transmission,
@@ -127,21 +116,13 @@ class CarModal extends Component
                 'fuel' => $this->fuel,
                 'city' => $this->city,
                 'brand_id' => $this->brand_id,
+                'description' => $this->description,
+                'image' => $imagePath,
             ]);
-
-            if ($this->images) {
-                foreach ($this->images as $image) {
-                    $imagePath = $image->store('cars', 'public');
-                    Image::create([
-                        'img' => $imagePath,
-                        'car_id' => $car->id,
-                    ]);
-                }
-            }
         }
 
         $this->closeModal();
-        $this->dispatch('carUpdated');
+        $this->dispatch('updatedCar');
     }
 
     public function render()

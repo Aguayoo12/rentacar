@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('fuel');       
             $table->string('city');
+            $table->text('image');
+            $table->text('description');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');     
             $table->timestamps();

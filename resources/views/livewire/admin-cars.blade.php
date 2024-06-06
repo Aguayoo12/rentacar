@@ -1,6 +1,7 @@
 <div>
+    <livewire:image-modal />
     <div class="grid grid-cols-2">
-        <h2 class="text-3xl font-bold text-black mb-2">Marcas</h2>
+        <h2 class="text-3xl font-bold text-black mb-2">Coches</h2>
         <div class="justify-item-end flex flex-row-reverse">
             <livewire:car-modal />
 
@@ -29,7 +30,7 @@
                     <th scope="col" class="px-6 py-3">Combustible</th>
                     <th scope="col" class="px-6 py-3">Ciudad</th>
                     <th scope="col" class="px-6 py-3">Precio/Día</th>
-                    <th scope="col" class="px-6 py-3">Imagenes</th>
+                    <th scope="col" class="px-6 py-3">Imagen</th>
                     <th scope="col" class="px-6 py-3 text-end">Acciones</th>
                 </tr>
             </thead>
@@ -46,10 +47,10 @@
                     <td class="px-6 py-4">{{ $car->fuel }}</td>
                     <td class="px-6 py-4">{{ $car->city }}</td>
                     <td class="px-6 py-4">{{ $car->price }}</td>
-                    <td class="px-6 py-4"><a>Ver imagenes</a></td>
-                    <td class="px-6 py-4 text-end">
+                    <td class="px-6 py-4"><img src="{{ asset('storage/'.$car->image) }}" alt="{{ $car->name }}" class="mx-auto w-10 h-10"></td>
+                    <td class="px-6 py-4 text-end flex flex-row">
                         <button class="font-medium text-gray-900 border border-gray-900 px-2 py-1 rounded hover:bg-gray-100" wire:click="$dispatch('editCar', { carId: {{ $car->id }} })">Editar</button>
-                        <a href="#" class="font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 mx-2 rounded">Eliminar</a>
+                        <button class="font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 mx-2 rounded">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach

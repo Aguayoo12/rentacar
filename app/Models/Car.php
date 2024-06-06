@@ -10,7 +10,7 @@ class Car extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'seats', 'transmission', 'power', 'price', 'km', 'type', 'fuel', 'city', 'images', 'brand_id'
+        'name', 'seats', 'transmission', 'power', 'price', 'km', 'type', 'fuel', 'city', 'image', 'brand_id'
     ];
 
     public function brand()
@@ -20,6 +20,6 @@ class Car extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_cars')->withPivot('rating', 'firstDate', 'lastDate');
+        return $this->belongsToMany(User::class, 'users_cars')->withPivot('firstDate', 'lastDate');
     }
 }

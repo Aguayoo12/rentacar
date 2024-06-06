@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,7 +14,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    
+    Route::resource('brands', BrandController::class);
+    Route::resource('cars', CarController::class);
+    Route::resource('comments', CommentController::class);
 });
 
 Route::get('/admin', function () {

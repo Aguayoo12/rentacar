@@ -11,7 +11,7 @@
         <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-40">
             <div class="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
                 <h1 class="mb-6 font-sans text-4xl text-center font-bold tracking-tight text-white sm:text-5xl sm:leading-none merriweather-black-italic">
-                    RENTA<span class="rounded-md pe-2 text-white bg-red-500">CAR</span>   
+                    BLOG<span class="rounded-md pe-2 text-white bg-red-500">CAR</span>   
                 </h1>
                 <p class="mb-6 text-base text-indigo-200 md:text-lg">
                     En esta página podrás encontrar las diferentes confradías de la Semana Santa andaluza, en las cuales puedes encontrar información detallada, para buscar mas detallamanete escriba el nombre.
@@ -19,5 +19,5 @@
             </div>
         </div>
     </div>
-    @livewire('filter-form')
+    @livewire('coment-blog', ['comments' => $comments])
 </x-app-layout>

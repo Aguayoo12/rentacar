@@ -19,6 +19,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://kit.fontawesome.com/cddc496c37.js" crossorigin="anonymous"></script>
+        <script type="module" src="https://unpkg.com/cally"></script>
 
         <!-- Styles -->
         @livewireStyles
@@ -29,12 +31,15 @@
             font-style: italic;
             }
 
+            .error {
+                color: red
+            }
 
         </style>
     </head>
     <body class="font-sans antialiased">
 
-        <div class="min-h-screen bg-white">
+        <div class="min-h-screen bg-slate-50">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -56,17 +61,16 @@
 
         @livewireScripts
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     @stack('scripts')
     <script>
         window.addEventListener('scroll', function() {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 0) {
-                navbar.classList.add('bg-white');
+                navbar.classList.add('bg-gray-700');
             } else {
-                navbar.classList.remove('bg-white');
+                navbar.classList.remove('bg-gray-700');
             }
         });
     </script>

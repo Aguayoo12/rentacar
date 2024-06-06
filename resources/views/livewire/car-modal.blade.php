@@ -30,10 +30,9 @@
                     <select id="transmission" wire:model.live="transmission" required class="w-full p-2 border rounded">
                         <option>Seleccione una Transmisión</option>
                         <option value="manual">Manual</option>
-                        <option value="automatic">Automatico</option>
+                        <option value="automatico">Automatico</option>
                     </select>
                     @error('transmission') <span class="error">{{ $message }}</span> @enderror
-                    {{$transmission}}
                 </div>
                 <div class="mt-4">
                     <label for="power">Potencia</label>
@@ -68,11 +67,11 @@
                     <label for="fuel">Combustible</label>
                     <select id="fuel" wire:model="fuel" required class="w-full p-2 border rounded">
                         <option>Seleccione un Combustible</option>
-                        <option value="gasoline">Gasolina</option>
+                        <option value="gasolina">Gasolina</option>
                         <option value="diesel">Diesel</option>
-                        <option value="electric">Electrico</option>
-                        <option value="hybrid">Híbrido</option>
-                        <option value="glp">Gas GLP</option>
+                        <option value="electrico">Electrico</option>
+                        <option value="hibrido">Híbrido</option>
+                        <option value="gas-glp">Gas GLP</option>
                     </select>
                     @error('fuel') <span class="error">{{ $message }}</span> @enderror
                 </div>
@@ -89,8 +88,12 @@
                             <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                         @endforeach
                     </select>
-                    {{$brand_id}}
                     @error('brand_id') <span class="error">{{ $message }}</span> @enderror
+                </div>
+                <div class="mt-2 col-span-2">
+                    <label for="description">Descripcion</label>
+                    <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-red-500 focus:border-red-500" placeholder="Escribe la descripcion del vehiculo..." wire:model="description"></textarea>
+                    @error('description') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     <div class="relative">
@@ -104,26 +107,22 @@
                             </span>
                         </div>
                         </label>
-                        <input hidden="" type="file" name="button2" wire:model='images' multiple id="button2">
+                        <input hidden="" type="file" name="button2" wire:model='image' accept="image/png,image/jpeg" id="button2">
                     </div>
                     @error('images.*') <span class="error">{{ $message }}</span> @enderror
                 </div>
-                @if ($imagePreviews)
+                @if ($imagePreview)
                     <div class="mt-4 col-span-2">
                         <label>Vista Previa:</label>
-                        <div class="grid grid-cols-5">
-                            @foreach ($imagePreviews as $preview)
-                                <img src="{{ $preview }}" class="w-32 h-32 rounded">
-                            @endforeach
+                        <div class="">                            
+                            <img src="{{ $imagePreview }}" class="w-32 h-32 rounded">                        
                         </div>
                     </div>
-                @elseif ($car && $car->images)
+                @elseif ($car)
                     <div class="mt-4 col-span-2">
                         <label>Vista Previa:</label>
-                        <div class="grid grid-cols-5">
-                            @foreach ($car->images as $img)
-                                <img src="{{ asset('storage/'.$img->img) }}" class="w-32 h-32 rounded">
-                            @endforeach
+                        <div class="">
+                            <img src="{{ asset('storage/'.$car->image) }}" class="w-32 h-32 rounded">                        
                         </div>
                     </div>
                 @endif
