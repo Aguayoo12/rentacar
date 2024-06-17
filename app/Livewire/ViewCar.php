@@ -12,6 +12,7 @@ class ViewCar extends Component
     public $initDate;
     public $endDate;
     public $differenceInDays;
+    public $showModal = false;
 
     public function mount($car, $initDate, $endDate)
     {
@@ -25,8 +26,14 @@ class ViewCar extends Component
         return view('livewire.view-car');
     }
 
+    public function mostrarModal() {
+        $this->showModal = true;
+    }
+    public function closeModal() {
+        $this->showModal = false;
+    }
     public function rent(){
         $this->car->users()->attach(Auth::user()->id, ['fisrtDafte' => session('initDate'), 'lastDafte' => session('endDate')]);
-        return to_route('cars.index');
+        return to_route('cars.index')->with('status', 'Reservado con exito');
     }
 }

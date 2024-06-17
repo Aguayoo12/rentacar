@@ -13,7 +13,9 @@
             </div>
         </div>
     </div>
-    
+    @if (session('status'))
+        <x-alerta>{{ session('status') }}</x-alerta>
+    @endif
     @livewire('filter-form')
     <div class=" max-w-5xl mx-auto p-2 mt-12">
         @livewire('cars-view', ['cars' => $cars])

@@ -11,7 +11,7 @@
                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                             </svg>
                         </div>
-                        <input required wire:model="initDate" name="start" type="date" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-10 p-2.5 " placeholder="Selecciona fecha de fin">
+                        <input min="{{ $now }}" max="{{ $endDate }}" required wire:model="initDate" name="start" type="date" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-10 p-2.5 " placeholder="Selecciona fecha de fin">
                     </div>
                 </div>
                 <span class="mx-4 text-gray-500">hasta</span>
@@ -22,20 +22,20 @@
                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                             </svg>
                         </div>
-                        <input required wire:model="endDate" name="end" type="date" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-10 p-2.5 " placeholder="Selecciona fecha de fin">
+                        <input required wire:model="endDate" min="{{ $initDate }}" name="end" type="date" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-10 p-2.5 " placeholder="Selecciona fecha de fin">
                     </div>
                 </div>
             </div>
             <div class="mt-3 grid grid-cols-3 gap-2">
                 <select id="city" wire:model="city" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
-                    <option selected>Cualquier ciudad</option>
+                    <option selected value="any">Cualquier ciudad</option>
                     @foreach ($cities as $city)
                         <option value="{{ $city->city }}">{{ $city->city }}</option>
                     @endforeach
                 </select>
                 <div class="relative flex items-center">
                     <select id="city" wire:model="people" class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
-                        <option selected>Numero de Personas</option>
+                        <option selected value="0">Numero de Personas</option>
                         @for ($i = 1; $i <= 9; $i++)
                             <option value="{{ $i }}">{{ $i }}</option>
                         @endfor

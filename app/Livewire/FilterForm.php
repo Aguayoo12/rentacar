@@ -14,9 +14,11 @@ class FilterForm extends Component
     public $city;
     public $cities;
     public $people;
+    public $now;
 
     public function mount()
     {
+        $this->now = Carbon::now()->toDateString();
         $this->initDate = session('initDate') ? session('initDate') : Carbon::now()->toDateString();
         $this->endDate = session('endDate') ? session('endDate') : Carbon::now()->addDays(2)->toDateString();
         $this->city = session('city') ? session('city') : null;
@@ -26,6 +28,7 @@ class FilterForm extends Component
 
     public function render()
     {
+        session(['initDate' => $this->initDate, 'endDate' => $this->endDate]);
         return view('livewire.filter-form');
     }
 

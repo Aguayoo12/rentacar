@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{asset('storage/img/logo.png')}}" alt="" class="h-12">
                     </a>
                 </div>
 
@@ -21,8 +21,8 @@
                     <x-nav-link href="{{ route('comments.index') }}" :active="request()->routeIs('comments.index')">
                         {{ __('Blog') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('')">
-                        {{ __('Mis coches') }}
+                    <x-nav-link href="{{ route('reservas') }}" :active="request()->routeIs('reservas')">
+                        {{ __('Mis reservas') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -65,6 +65,10 @@
                                 {{ __('Administrador') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link href="{{ route('adminreservas') }}">
+                                {{ __('Administrador Reservas') }}
+                            </x-dropdown-link>
+
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                             <!-- Authentication -->
@@ -72,7 +76,7 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                        @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>

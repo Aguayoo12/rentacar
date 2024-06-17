@@ -14,6 +14,9 @@ class CarsView extends Component
     public $minPower = 1;
     public $maxPower = 999;
 
+    public $minPrice = 1;
+    public $maxPrice = 999;
+
     public $transmissions = [];
     public $types = [];
     public $fuels = [];
@@ -31,6 +34,12 @@ class CarsView extends Component
         })
         ->when($this->maxPower, function ($query) {
             $query->where('power', '<=', $this->maxPower);
+        })
+        ->when($this->minPrice, function ($query) {
+            $query->where('price', '>=', $this->minPrice);
+        })
+        ->when($this->maxPrice, function ($query) {
+            $query->where('price', '<=', $this->maxPrice);
         })
         ->when($this->transmissions, function ($query) {
             $query->where('transmission', $this->transmissions);

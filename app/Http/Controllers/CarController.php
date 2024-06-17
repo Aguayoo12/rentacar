@@ -16,15 +16,15 @@ class CarController extends Controller
     {
         $initDate = session('initDate');
         $endDate = session('endDate');
-        $city = session('city');
-        $people = session('people');
+        $city = session('city') == 'any' ? "" : session('city');
+        $people = session('people') ? session('people') : 0;
 
         $reservedCarIds = DB::table('users_cars')
         ->whereRaw('fisrtDafte <= ? AND lastDafte >= ?', [$endDate, $initDate])
         ->pluck('car_id')
         ->toArray();
 
-        $availableCars = Car::whereNotIn('id', $reservedCarIds)->get();
+        $availableCars = Car::whereNotIn('id', $reservedCarIds)->where('city','like', '%' . $city . '%')->where('seats','>=', $people)->get();
         return view('cars.allcars', ['cars' => $availableCars, 'initDate' => $initDate, 'endDate' => $endDate, 'city' => $city, 'people' => $people]);
     }
 

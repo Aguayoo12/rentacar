@@ -8,12 +8,12 @@ use Livewire\Component;
 
 class AdminBrands extends Component
 {
-    
+    public $search;
 
     #[On('brandUpdated')] 
     public function render()
     {
-        $brands = Brand::all();
+        $brands = Brand::where('name', 'like', '%' . $this->search . '%')->get();
         return view('livewire.admin-brands', compact('brands'));
     }
 

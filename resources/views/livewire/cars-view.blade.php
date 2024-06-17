@@ -25,6 +25,26 @@
                 </div>
             </div>
             <hr class="my-2">
+            <h2 class="text-xl text-black mb-2">Precio por Día</h2>
+            <div>
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-700">Desde</label>
+                <div class="relative flex items-center w-2/5">
+                    <input wire:model="minPrice" type="text" id="minPower" data-input-counter data-input-counter-min="1" data-input-counter-max="9999" aria-describedby="helper-text-explanation" class="bg-gray-50 border-gray-400 rounded-md h-11 font-medium text-center text-gray-900 text-sm focus:ring-red-500 focus:border-red-500 block w-full pb-6" placeholder=""/>
+                    <div class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                        <span>Euros</span>
+                    </div>
+                    </button>
+                </div>
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-700">Hasta</label>
+                <div class="relative flex items-center w-2/5">
+                    <input  wire:model="maxPrice" type="text" id="bedrooms-input" data-input-counter data-input-counter-min="{{$minPrice}}" data-input-counter-max="9999" aria-describedby="helper-text-explanation" class="bg-gray-50 border-gray-400 rounded-md h-11 font-medium text-center text-gray-900 text-sm focus:ring-red-500 focus:border-red-500 block w-full pb-6" placeholder=""/>
+                    <div class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                        <span>Euros</span>
+                    </div>
+                    </button>
+                </div>
+            </div>
+            <hr class="my-2">
             <h2 class="text-xl text-black mb-2">Cambio</h2>
             <input id="automatico" value="automatico" type="checkbox" wire:model="transmissions" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
             <label for="automatico"  class="ms-2 text-sm text-gray-700">Automático</label><br>
@@ -55,7 +75,7 @@
     </div>
     <div class="col-span-4">
         @foreach ($cars as $car)
-            <div class="shadow overflow-hidden sm:rounded-lg bg-white grid grid-cols-6"> 
+            <div class="shadow overflow-hidden sm:rounded-lg bg-white grid grid-cols-6 mb-4"> 
                 <div class="col-span-2 p-2">
                     <img src="{{ asset('storage/'.$car->image) }}" alt="" class="w-72 h-32 rounded-lg">
                 </div>

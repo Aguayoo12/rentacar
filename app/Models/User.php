@@ -67,6 +67,6 @@ class User extends Authenticatable
     }
 
     public function cars(){
-        return $this->belongsToMany(Car::class, "users_cars")->withPivot('rating', 'firstDate', 'lastDate');
+        return $this->belongsToMany(Car::class, "users_cars")->withPivot('rating', 'fisrtDafte', 'lastDafte');
     }
 }
