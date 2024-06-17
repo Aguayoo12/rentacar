@@ -85,15 +85,12 @@
                     <div class="flex">
                         <button wire:click="mostrarModal" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Alquilar</button>
                     </div>
-                    @if (!$showModal)
-                        <span>Alquiler abierto</span>
-                    @endif
                 </div>
             </div>
         </div>
     </div>
     @if($showModal)
-    <div class="fixed inset-0 flex justify-center bg-black bg-opacity-50 z-50 pt-24">
+    <div class="fixed inset-0 flex justify-center bg-black bg-opacity-50 z-50 pt-20">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <section id="card_container" style="transform-style: preserve-3d;"
             class="rotate-y-45 relative w-full max-w-sm mx-auto h-52">
@@ -105,18 +102,45 @@
               </div>
               <div class="flex flex-col mt-4 mb-4">
                 <span class="text-xs">Número de Tarjeta</span>
-                <span id="card_number_text" class="text-white">#### #### #### ####</span>
+                <span id="card_number_text" class="text-white">
+                  @if ($creditCard)
+                    {{ $creditCard }}
+                  @else
+                    #### #### #### ####
+                  @endif
+                </span>
               </div>
               <div class="w-full flex justify-between">
                 <div>
                   <span class="text-xs ">Nombre Tarjeta</span>
-                  <p class="italic break-all" id="card_name_text">Nombre Titular </p>
+                  <p class="italic break-all" id="card_name_text">@if ($holderName)
+                    {{ $holderName }}
+                  @else
+                    Nombre del Titular
+                  @endif </p>
+                </div>
+
+                <div>
+                  <span class="text-xs ">CVV</span>
+                  <p class="italic break-all" id="card_name_text">@if ($cvv)
+                    {{ $cvv }}
+                  @else
+                    123
+                  @endif</p>
                 </div>
       
                 <div>
                   <div class="w-20">
                     <label for="exp" class="text-xs">Válido hasta</label>
-                    <p><span id="month_text">00</span> / <span id="year_text">00</span></p>
+                    <p><span id="month_text">@if ($expirationMonth)
+                      {{ $expirationMonth }}
+                    @else
+                      00
+                    @endif</span> / <span id="year_text">@if ($expirationYear)
+                      {{ $expirationYear }}
+                    @else
+                      00
+                    @endif</span></p>
                   </div>
                 </div>
               </div>
@@ -127,50 +151,72 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                   Número de tarjeta
                 </label>
-                <input
+                <input wire:model.live="creditCard"
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="card_number" type="number" placeholder="#### #### #### ####">
+                  @error('creditCard')
+                    <div class="text-red-500">{{ $message }}</div>
+                  @enderror
               </div>
               <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="card_name">
                   Nombre Tarjeta
                 </label>
-                <input
+                <input wire:model.live="holderName"
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="card_name" type="text" placeholder="">
+                  @error('holderName')
+                    <div class="text-red-500">{{ $message }}</div>
+                  @enderror
               </div>
       
               <div class="mb-6 flex items-center justify-between">
-                <select id="month" class="p-2 outline outline-slate-200 outline-1 border-white border-r-8" name="" id="">
-                  <option value="">Mes</option>
-                  <option value="01">01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-                <select id="year" class="p-2 outline outline-slate-200 outline-1 border-white border-r-8" name="" id="">
-                  <option value="">Año</option>
-                  <option value="23">2023</option>
-                  <option value="24">2024</option>
-                  <option value="25">2025</option>
-                  <option value="26">2026</option>
-                  <option value="27">2027</option>
-                  <option value="28">2028</option>
-                </select>
                 <div>
-                  <input id="cvv" type="text" placeholder="CVV" class="block shadow w-20 border rounded p-2">
+                  <select wire:model.live="expirationMonth" id="month" class="p-2 outline outline-slate-200 outline-1 border-white border-r-8" name="" id="">
+                    <option value="">Mes</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  @error('expirationMonth')
+                      <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div>
+                  <select wire:model.live="expirationYear" id="year" class="p-2 outline outline-slate-200 outline-1 border-white border-r-8" name="" id="">
+                    <option value="">Año</option>
+                    <option value="23">2023</option>
+                    <option value="24">2024</option>
+                    <option value="25">2025</option>
+                    <option value="26">2026</option>
+                    <option value="27">2027</option>
+                    <option value="28">2028</option>
+                    <option value="28">2029</option>
+                    <option value="28">2030</option>
+                    <option value="28">2031</option>
+                  </select>
+                  @error('expirationYear')
+                      <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div>
+                  <input wire:model.live='cvv' id="cvv" type="text" placeholder="CVV" class="block shadow w-20 border rounded p-2">
+                  @error('cvv')
+                    <div class="text-red-500">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
               <div class="flex items-center justify-between">
-                <button class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mr-2 px-4 rounded" type="button">
+                <button class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mr-2 px-4 rounded" type="button" wire:click="rent">
                   Alquilar
                 </button>
                 <button wire:click='closeModal' class="w-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button">

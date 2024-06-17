@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ViewCar extends Component
@@ -13,6 +14,17 @@ class ViewCar extends Component
     public $endDate;
     public $differenceInDays;
     public $showModal = false;
+    
+    #[Validate('required|min:16|max:16',message: 'Escribe el numero de tarjeta')]
+    public $creditCard;
+    #[Validate('required|min:3|max:4', message: 'Escribe el numero secreto')]
+    public $cvv;
+    #[Validate('required', message: 'Ingresa el mes de expiracion')]
+    public $expirationMonth;
+    #[Validate('required', message: 'Ingresa el añoo de expiracion')]
+    public $expirationYear;
+    #[Validate('required|min:10', message: 'Ingresa el nombre del propietario')]
+    public $holderName;
 
     public function mount($car, $initDate, $endDate)
     {
@@ -33,6 +45,7 @@ class ViewCar extends Component
         $this->showModal = false;
     }
     public function rent(){
+        $this->validate();
         $this->car->users()->attach(Auth::user()->id, ['fisrtDafte' => session('initDate'), 'lastDafte' => session('endDate')]);
         return to_route('cars.index')->with('status', 'Reservado con exito');
     }
