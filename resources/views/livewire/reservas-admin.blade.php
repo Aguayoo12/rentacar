@@ -1,4 +1,7 @@
 <div class="p-4 max-w-7xl mx-auto">
+    @if (session('status'))
+        <x-alerta>{{ session('status') }}</x-alerta>
+    @endif
 <div class="relative overflow-x-auto sm:rounded-lg">
     <div class="flex items-center justify-end flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-gray-50">
         <label for="table-search" class="sr-only">Search</label>
@@ -64,12 +67,12 @@
                     {{$reserva->lastDafte}}
                 </td>
                 <td class="px-6 py-4">
-                    @if ($reserva->lastDafte < $now)
+                    @if ($reserva->lastDafte <= $now)
                     <div class="flex items-center">
                         <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Finalizado
                     </div>
                     @elseif ($reserva->fisrtDafte > $now)
-                        <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-white bg-red-500 p-2 rounded">Cancelar</a>    
+                        <a href="#" wire:click="openModal({{$reserva->user_id}}, {{$reserva->car_id}}, '{{$reserva->fisrtDafte}}', '{{$reserva->lastDafte}}')" type="button" class="font-medium text-white bg-red-500 p-2 rounded">Cancelar</a>    
                     @else
                     <div class="flex items-center">
                         <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 me-2"></div> En proceso
@@ -81,30 +84,31 @@
             @endforeach
         </tbody>
     </table>
-    <!-- Edit user modal -->
-    <div id="editUserModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <form class="relative bg-white rounded-lg shadow">
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Edit user
-                    </h3>
-                   <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="editUserModal">
+    @if ($showModal)
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow">
+                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" wire:click="closeModal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-red-500 w-24 h-24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-2 text-lg font-normal text-gray-500">¿Estás seguro que quieres cancelar la reserva? </h3>
+                    <p class="text-sm text-gray-400 mb-5 mx-12">La cancelación de la reserva implica la devolución del pago a excepción de la fianza</p>
+                    <button wire:click="delete"  type="button" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Si, Estoy seguro
+                    </button>
+                    <button wire:click="closeModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">No, cancelar</button>
                 </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+    @endif
 </div>
 
 </div>

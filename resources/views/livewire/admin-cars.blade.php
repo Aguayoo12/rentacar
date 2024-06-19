@@ -50,7 +50,6 @@
                     <td class="px-6 py-4"><img src="{{ asset('storage/'.$car->image) }}" alt="{{ $car->name }}" class="mx-auto w-10 h-10"></td>
                     <td class="px-6 py-4 text-end flex flex-row">
                         <button class="font-medium text-gray-900 border border-gray-900 px-2 py-1 rounded hover:bg-gray-100" wire:click="$dispatch('editCar', { carId: {{ $car->id }} })">Editar</button>
-                        <button class="font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 mx-2 rounded">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach

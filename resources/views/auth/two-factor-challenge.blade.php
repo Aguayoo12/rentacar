@@ -1,15 +1,25 @@
-<x-guest-layout>
+<x-app-layout>
+    <div class="relative bg-cover bg-no-repeat bg-center" style="background-image: url('{{asset('storage/img/banner.jpg')}}')">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="absolute inset-x-0 bottom-0">
+            <div class="bg-red-600 h-4"></div>
+        </div>
+        <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-24">
+            <div class="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
+            </div>
+        </div>
+    </div>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
 
         <div x-data="{ recovery: false }">
-            <div class="mb-4 text-sm text-gray-600 dark:text-gray-400" x-show="! recovery">
+            <div class="mb-4 text-sm text-gray-600" x-show="! recovery">
                 {{ __('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
             </div>
 
-            <div class="mb-4 text-sm text-gray-600 dark:text-gray-400" x-cloak x-show="recovery">
+            <div class="mb-4 text-sm text-gray-600" x-cloak x-show="recovery">
                 {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
             </div>
 
@@ -29,7 +39,7 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <button type="button" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 underline cursor-pointer"
+                    <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
                                     x-show="! recovery"
                                     x-on:click="
                                         recovery = true;
@@ -38,7 +48,7 @@
                         {{ __('Use a recovery code') }}
                     </button>
 
-                    <button type="button" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 underline cursor-pointer"
+                    <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
                                     x-cloak
                                     x-show="recovery"
                                     x-on:click="
@@ -55,4 +65,4 @@
             </form>
         </div>
     </x-authentication-card>
-</x-guest-layout>
+</x-app-layout>

@@ -1,4 +1,7 @@
 <div>
+    @if (session('status'))
+        <x-alerta>{{ session('status') }}</x-alerta>
+    @endif
     <div class="max-w-7xl mx-auto pt-10">
         <h2 class="text-3xl merriweather-black-italic">MIS RESERVAS<span class="text-red-500"> EN CURSO</span></h2>
         <div class="grid grid-cols-4">
@@ -86,7 +89,7 @@
                         </div>
                         <div class="px-6 pb-2 flex justify-end">
                             <button class="text-white bg-red-500 font-bold rounded p-2" wire:click="setCarId({{ $car->id }}, '{{ $car->pivot->fisrtDafte }}', '{{ $car->pivot->lastDafte }}')">
-                                Canelar
+                                Cancelar
                             </button>
                         </div>
                     </div>
@@ -158,7 +161,6 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                     <h3 class="mb-2 text-lg font-normal text-gray-500">¿Estás seguro que quieres cancelar la reserva? </h3>
-                    {{$this->fistDate}} {{$this->id}} {{$this->lastDate}}
                     <p class="text-sm text-gray-400 mb-5 mx-12">La cancelación de la reserva implica la devolución del pago a excepción de la fianza</p>
                     <button wire:click="borrar"  type="button" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                         Si, Estoy seguro
@@ -184,7 +186,6 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                     <h3 class="mb-2 text-lg font-normal text-gray-500">¿Estás seguro que quieres devolver el vehículo? </h3>
-                    {{$this->fistDate}} {{$this->id}} {{$this->lastDate}}
                     <p class="text-sm text-gray-400 mb-5 mx-12">La devolución implica el cobro del pago por los días utilizados además del seguro y la fianza</p>
                     <button wire:click="delete"  type="button" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                         Si, Estoy seguro

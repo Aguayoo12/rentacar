@@ -36,7 +36,11 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    @if (Auth::user()->profile_photo_path)
+                                        <img src="{{ asset('storage/'.Auth::user()->profile_photo_path) }}" alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full object-cover">
+                                    @else
+                                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full object-cover">
+                                    @endif
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
@@ -61,13 +65,15 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link href="{{ route('admin') }}">
-                                {{ __('Administrador') }}
-                            </x-dropdown-link>
+                            @if (Auth::user()->role == 'admin')
+                                <x-dropdown-link href="{{ route('admin') }}">
+                                    {{ __('Administrador') }}
+                                </x-dropdown-link>
 
-                            <x-dropdown-link href="{{ route('adminreservas') }}">
-                                {{ __('Administrador Reservas') }}
-                            </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('adminreservas') }}">
+                                    {{ __('Administrador Reservas') }}
+                                </x-dropdown-link>
+                            @endif
 
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 

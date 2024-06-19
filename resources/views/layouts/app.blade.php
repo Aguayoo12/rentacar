@@ -39,7 +39,7 @@
     </head>
     <body class="font-sans antialiased">
 
-        <div class="min-h-screen bg-slate-50">
+        <div class=" bg-slate-50">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -68,10 +68,10 @@
                     <img src="{{asset('storage/img/logo.png')}}" alt="" class="h-12">
                 </a>
                     <ul class="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-8 mb-10 border-b border-gray-200">
-                        <li><a href="#" class="text-white hover:text-red-500">Inicio</a></li>
-                        <li><a href="#" class=" text-white hover:text-red-500">Ver Coches</a></li>
-                        <li><a href="#" class=" text-white hover:text-red-500">Blog</a></li>
-                        <li><a href="#" class=" text-white hover:text-red-500">Mis Coches</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="text-white hover:text-red-500">Inicio</a></li>
+                        <li><a href="{{ route('cars.index') }}" class=" text-white hover:text-red-500">Ver Coches</a></li>
+                        <li><a href="{{ route('comments.index') }}" class=" text-white hover:text-red-500">Blog</a></li>
+                        <li><a href="{{ route('reservas') }}" class=" text-white hover:text-red-500">Mis Coches</a></li>
                     </ul>
                     <div class="flex space-x-10 justify-center items-center mb-14">
                         <a href="#" class="block  text-white transition-all duration-500 hover:text-red-600 ">

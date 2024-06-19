@@ -11,7 +11,6 @@ use Livewire\WithFileUploads;
 class ComentBlog extends Component
 {
     use WithFileUploads;
-    public $comments;
     public $image;
     public $comment;
     public $rating = 0;
@@ -50,9 +49,8 @@ class ComentBlog extends Component
             'user_id' => Auth::user()->id,
         ]);
         $this->resetForm();
-        $this->comments = Comment::all();
 
-        $this->dispatch('updateBlog');
+        session()->flash('status', 'Comentado con exito');
     }
 
     public function resetForm()
@@ -62,9 +60,18 @@ class ComentBlog extends Component
         $this->rating = 0;
         $this->hoverRating = 0;
     }
-    #[On('updateBlog')]
+
+    #[On('sudibaBlog')]
     public function render()
     {
-        return view('livewire.coment-blog');
+        $comments = Comment::all();
+        return view('livewire.coment-blog', compact('comments'));
+    }
+
+    public function delete($id)
+    {
+        $comment = Comment::find($id);
+        $comment->delete();
+        session()->flash('status', 'Eliminado con exito');
     }
 }

@@ -13,6 +13,12 @@ class ReservasAdmin extends Component
     public $now;
     public $search;
 
+    public $showModal = false;
+    public $userId;
+    public $id;
+    public $fistDate;
+    public $lastDate;
+
     public function mount()
     {
         $this->now = Carbon::now()->toDateString();
@@ -29,6 +35,7 @@ class ReservasAdmin extends Component
             'users.surname as user_surname',
             'users.profile_photo_path as photo',
             'users.email',
+            'cars.id as car_id',
             'cars.name as car_name',
             'cars.city as car_city',
             'brands.name as brand_name',
@@ -50,5 +57,27 @@ class ReservasAdmin extends Component
 
     public function getImage($id){
         return User::find($id)->profile_photo_url;
+    }
+    public function openModal($userId, $id, $fistDate, $lastDate){
+        $this->userId = $userId;
+        $this->id = $id;
+        $this->fistDate = $fistDate;
+        $this->lastDate = $lastDate;
+        $this->showModal = true;
+    }
+
+    public function closeModal(){
+        $this->showModal = false;
+    }
+    public function delete(){
+        DB::table('users_cars')
+        ->where('user_id', $this->userId)
+        ->where('car_id', $this->id)
+        ->where('fisrtDafte', $this->fistDate)
+        ->where('lastDafte', $this->lastDate)
+        ->delete();
+
+        $this->showModal = false;
+        session()->flash('status', 'Canelado correctamente');
     }
 }

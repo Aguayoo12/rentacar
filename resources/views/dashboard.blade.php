@@ -132,7 +132,7 @@
                     <div class="px-6 pb-2 flex justify-between">
                         <p class="text-gray-400 text-md"><span class="text-red-500 text-2xl">{{ $car->price }}€</span>/Día</p>
                         <button class="text-white bg-gray-950 font-bold rounded p-2">
-                            <a href="{{ route('cars.show', ['car' => $car->id]) }}">Resérvalo</a>
+                            <a href="{{ route('cars.index') }}">Resérvalo</a>
                         </button>
                     </div>
                 </div>
@@ -200,7 +200,11 @@
                 class="rounded overflow-hidden shadow-lg bg-gray-50">
                     <div class="py-4 px-8">
                         <div class="flex flex-row gap-x-6">
-                            <img src="{{ $comment->user->profile_photo_url }}" class="rounded-full h-12 w-12 mb-4">
+                            @if ($comment->user->profile_photo_path)
+                                        <img src="{{ asset('storage/'.$comment->user->profile_photo_path) }}" alt="{{ $comment->user->name }}" class="rounded-full h-12 w-12 mb-4">
+                                    @else
+                                        <img src="{{ $comment->user->profile_photo_url }}" alt="{{ $comment->user->name }}" class="rounded-full h-12 w-12 mb-4">
+                                    @endif
                             <div>
                                 <p class="text-lg font-bold">{{$comment->user->name}}</p>
                                 <p class="text-sm text-gray-600">{{$comment->created_at->diffForHumans()}}</p>

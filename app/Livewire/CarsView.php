@@ -61,4 +61,8 @@ class CarsView extends Component
     public function showCar($id){
         return to_route('cars.show', ['car' => $id]);
     }
+
+    public function isEmpty(){
+        return $this->cars->isEmpty();
+    }
 }

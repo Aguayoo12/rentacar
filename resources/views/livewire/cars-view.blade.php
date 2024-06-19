@@ -118,5 +118,8 @@
                 </div>
             </div>
         @endforeach
+        @if ($this->isEmpty())
+            <div class="text-center">No hay resultados, para los filtros aplicados.</div>
+        @endif
     </div> 
 </div>

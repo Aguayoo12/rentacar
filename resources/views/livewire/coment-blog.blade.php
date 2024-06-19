@@ -1,8 +1,9 @@
 <div>
+    @if (session('status'))
+        <x-alerta>{{ session('status') }}</x-alerta>
+    @endif
     <div class="relative bg-white max-w-4xl mx-auto -mt-24 z-10 py-4 px-6 border border-gray-300 rounded-xl">
         <h1 class="text-2xl font-semibold text-black">Agregar Reseña</h1>
-        <form action="" class="mt-2">
-            @csrf
             <textarea wire:model='comment' class="w-full p-2 border border-gray-300 rounded" placeholder="Escribe una reseña..."></textarea>
             <div class="flex">
                 <div class="flex flex-col mt-2">
@@ -47,7 +48,6 @@
             <div class="flex justify-end mt-2">
                 <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" wire:click="submit">Subir Reseña</button>
             </div>
-        </form>
     </div>
     <div class="mt-10 bg-white max-w-4xl mx-auto rounded shadow">
         @foreach ($comments as $comment)
@@ -71,12 +71,26 @@
                     </div>
                     <p class="text-gray-700 text-md">{{ $comment->comment }}</p>
                 </div>
-                <div class="flex items-center">
-                    <a
-                        href="#"><img class="w-10 h-10 rounded-full mr-4" src="{{Auth::user()->profile_photo_url}}" alt="Avatar of Jonathan Reinink"></a>
-                    <div class="text-sm">
-                        <a href="#" class="text-gray-900 font-semibold leading-none hover:text-indigo-600">{{ $comment->user->name }} {{ $comment->user->surname }}</a>
-                        <p class="text-gray-600">{{ $comment->created_at->diffForHumans() }}</p>
+                <div class="flex justify-between">
+                    <div class="flex">
+                            <a
+                            href="#">
+                            @if (Auth::user()->profile_photo_path)
+                                        <img src="{{ asset('storage/'.Auth::user()->profile_photo_path) }}" alt="{{ Auth::user()->name }}" class="w-10 h-10 rounded-full mr-4">
+                                    @else
+                                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="w-10 h-10 rounded-full mr-4">
+                                    @endif</a>
+                        <div class="text-sm">
+                            <a href="#" class="text-gray-900 font-semibold leading-none hover:text-indigo-600">{{ $comment->user->name }} {{ $comment->user->surname }}</a>
+                            <p class="text-gray-600">{{ $comment->created_at->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                    <div class="">
+                        @if(Auth::user()->id == $comment->user_id || Auth::user()->role == 'admin')
+                        <button class="bg-red-500 hover:bg-gray-900 text-white font-bold p-2 rounded" wire:click='delete({{ $comment->id }})'>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                        </button>
+                    @endif
                     </div>
                 </div>
             </div>

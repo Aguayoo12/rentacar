@@ -16,7 +16,7 @@ class ViewCar extends Component
     public $showModal = false;
     
     #[Validate('required|min:16|max:16',message: 'Escribe el numero de tarjeta')]
-    public $creditCard;
+    public $numeroTarjeta;
     #[Validate('required|min:3|max:4', message: 'Escribe el numero secreto')]
     public $cvv;
     #[Validate('required', message: 'Ingresa el mes de expiracion')]
@@ -24,7 +24,7 @@ class ViewCar extends Component
     #[Validate('required', message: 'Ingresa el añoo de expiracion')]
     public $expirationYear;
     #[Validate('required|min:10', message: 'Ingresa el nombre del propietario')]
-    public $holderName;
+    public $nombreTitular;
 
     public function mount($car, $initDate, $endDate)
     {

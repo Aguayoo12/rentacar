@@ -90,7 +90,7 @@
         </div>
     </div>
     @if($showModal)
-    <div class="fixed inset-0 flex justify-center bg-black bg-opacity-50 z-50 pt-20">
+    <div class="fixed inset-0 flex justify-center bg-black bg-opacity-50 z-50 ">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <section id="card_container" style="transform-style: preserve-3d;"
             class="rotate-y-45 relative w-full max-w-sm mx-auto h-52">
@@ -103,8 +103,8 @@
               <div class="flex flex-col mt-4 mb-4">
                 <span class="text-xs">Número de Tarjeta</span>
                 <span id="card_number_text" class="text-white">
-                  @if ($creditCard)
-                    {{ $creditCard }}
+                  @if ($numeroTarjeta)
+                    {{ $numeroTarjeta }}
                   @else
                     #### #### #### ####
                   @endif
@@ -113,8 +113,8 @@
               <div class="w-full flex justify-between">
                 <div>
                   <span class="text-xs ">Nombre Tarjeta</span>
-                  <p class="italic break-all" id="card_name_text">@if ($holderName)
-                    {{ $holderName }}
+                  <p class="italic break-all" id="card_name_text">@if ($nombreTitular)
+                    {{ $nombreTitular }}
                   @else
                     Nombre del Titular
                   @endif </p>
@@ -151,10 +151,10 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                   Número de tarjeta
                 </label>
-                <input wire:model.live="creditCard"
+                <input wire:model.live="numeroTarjeta"
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="card_number" type="number" placeholder="#### #### #### ####">
-                  @error('creditCard')
+                  @error('numeroTarjeta')
                     <div class="text-red-500">{{ $message }}</div>
                   @enderror
               </div>
@@ -162,10 +162,10 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="card_name">
                   Nombre Tarjeta
                 </label>
-                <input wire:model.live="holderName"
+                <input wire:model.live="nombreTitular"
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="card_name" type="text" placeholder="">
-                  @error('holderName')
+                  @error('nombreTitular')
                     <div class="text-red-500">{{ $message }}</div>
                   @enderror
               </div>

@@ -28,7 +28,11 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    @if ($this->user->profile_photo_path)
+                        <img src="{{ asset('storage/'.$this->user->profile_photo_path) }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    @else
+                        <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    @endif
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -57,6 +61,13 @@
             <x-label for="name" value="{{ __('Name') }}" />
             <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
+        </div>
+
+        <!-- Sruname -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="surname" value="{{ __('Apellidos') }}" />
+            <x-input id="surname" type="text" class="mt-1 block w-full" wire:model="state.surname" required autocomplete="surname" />
+            <x-input-error for="surname" class="mt-2" />
         </div>
 
         <!-- Email -->

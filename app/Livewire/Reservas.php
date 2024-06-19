@@ -68,6 +68,7 @@ class Reservas extends Component
 
         $this->showModal = false;
         $this->cars = Auth::user()->cars;
+        session()->flash('status', 'Cancelado correctamente');
 
     }
     public function delete(){
@@ -80,5 +81,6 @@ class Reservas extends Component
 
         $this->showModal1 = false;
         $this->cars = Auth::user()->cars;
+        session()->flash('status', 'Devuelto correctamente');
     }
 }
